@@ -1,4 +1,5 @@
 require 'date'
+require 'time'
 times = []
 new_arr = []
 more_arr = []
@@ -7,12 +8,11 @@ arrivals.each {|tme| times << DateTime.parse(tme).strftime("%H:%M")}
 times.each {|tme| new_arr << tme.split(':')}
 #new_arr.each {|i| puts i.inspect}
 new_arr.each {|i| i.each 
-	i[0].collect {|a| more_arr << a.to_i * 60}}
-p new_arr
-#times.average
+	i[0].each {|hr| more_arr << (hr.to_i * 60 * 60) + (i[1].to_i * 60)}}
+p sum_hrs = more_arr.inject{|sum,x| sum + x }
+length = arrivals.length
+p average = ((sum_hrs/60)/60/60)/5.to_f
+p t = Time.at(average)
 
 #difference between all times is the same (5 min); get median of sort
-
-def shut_up(allan)
-	allan.shuts_up
-end
+#sum + minutes / 60 /60 /5
