@@ -25,12 +25,16 @@ def population
 end
 
 def continents_with_countries
-	cntnts = @xml.search('/cia/continent').collect {|a| [a['name']]}
-	# cntnts.each {|name|
-	# 	name.each {|nm| nm.to_sym}} #3 retain quotes b/c of spacing: fix
-	main_has = Hash[cntnts.map{|name| name}]
-	countries = @xml.search('//country').collect {|a| [a['name'], a['continent']]}
-	p countries.each {|a, b| (b)} #put country in hash based on continent match
+	# cntnts.collect! {|name| name.to_s.gsub!((/\W/), "")}
+	# h1 = Hash[*cntnts.flatten]
+	# p h1.inspect
+	#main_has = Hash[cntnts.{|cntnt| cntnt}]
+	europe = []
+	countries = @xml.search('//country').collect {|a| [a['continent'], a['name']]}
+	continents = Hash.new { |hash, key| hash[key] = [] }
+	countries.each {|a, b| continents[a] << b}
+	p continents
+
 end
 
 end
